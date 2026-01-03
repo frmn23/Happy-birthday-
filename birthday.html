@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulang Tahun Firman - Sweet 16</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #1a0f0f 0%, #2d1b1b 100%);
+            color: #f5e6d3;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(43, 23, 23, 0.9);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #f5e6d3;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .page {
+            display: none;
+            padding-top: 80px;
+            min-height: 100vh;
+            animation: fadeIn 1s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .gold-text {
+            color: #d4af37;
+        }
+
+        .birthday-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            animation: pulse 2s infinite alternate;
+        }
+
+        .birthday-age {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .birthday-name {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .ornamental-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .ornamental-divider:before, .ornamental-divider:after {
+            content: "❖";
+            font-size: 24px;
+            color: #d4af37;
+            margin: 0 20px;
+        }
+
+        .ornamental-divider:before {
+            transform: rotate(90deg);
+        }
+
+        .ornamental-divider:after {
+            transform: rotate(-90deg);
+        }
+
+        .divider-line {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .hero-message {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #d4af37;
+            color: #1a0f0f;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid #d4af37;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: #d4af37;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Messages Page */
+        .messages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .message-card {
+            background: rgba(43, 23, 23, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-card:hover {
+            transform: translateY(-10px);
+            border-color: #d4af37;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .message-icon {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        .message-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+        }
+
+        .message-text {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Page */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 15, 15, 0.8);
+            padding: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #d4af37;
+        }
+
+        /* Wishes Page */
+        .wish-form {
+            background: rgba(43, 23, 23, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #d4af37;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(245, 230, 211, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 5px;
+            color: #f5e6d3;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #d4af37;
+            color: #1a0f0f;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
+
+        .submit-btn:hover {
+            background-color: #c19b2e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .wishes-container {
+            margin-top: 60px;
+        }
+
+        .wish-card {
+            background: rgba(43, 23, 23, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #d4af37;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .wish-author {
+            font-weight: bold;
+            color: #d4af37;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .wish-content {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(26, 15, 15, 0.9);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            color: #f5e6d3;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #d4af37;
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 30px rgba(212, 175, 55, 0.6); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 5px 15px;
+            }
+
+            .birthday-title {
+                font-size: 3rem;
+            }
+
+            .birthday-name {
+                font-size: 2.5rem;
+            }
+
+            .birthday-age {
+                font-size: 2rem;
+            }
+
+            .messages-container, .gallery-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page {
+                padding-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" data-page="home">Firman's 16th</a>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home">Beranda</a></li>
+                <li><a href="#" data-page="messages">Pesan Motivasi</a></li>
+                <li><a href="#" data-page="gallery">Galeri</a></li>
+                <li><a href="#" data-page="wishes">Ucapan</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="container">
+            <div class="hero">
+                <div class="ornamental-divider floating">
+                    <div class="divider-line"></div>
+                </div>
+                
+                <h1 class="birthday-title">Happy Sweet Sixteen</h1>
+                
+                <div class="ornamental-divider">
+                    <div class="divider-line"></div>
+                </div>
+                
+                <h2 class="birthday-name">Firman</h2>
+                <h3 class="birthday-age">16 Tahun Penuh Makna</h3>
+                
+                <div class="ornamental-divider floating">
+                    <div class="divider-line"></div>
+                </div>
+                
+                <p class="hero-message">
+                    Di usia ke-16 ini, semoga setiap langkahmu dihiasi dengan keberanian, 
+                    setiap impianmu diwarnai dengan harapan, dan setiap harimu dipenuhi dengan 
+                    kebahagiaan. Selamat ulang tahun untuk seorang pemuda hebat yang penuh potensi!
+                </p>
+                
+                <a href="#" class="cta-button" data-page="messages">Baca Pesan Motivasi</a>
+                
+                <div class="ornamental-divider">
+                    <div class="divider-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motivational Messages Page -->
+    <section id="messages" class="page">
+        <div class="container">
+            <h1 class="gold-text" style="text-align: center; font-size: 2.8rem; margin-bottom: 20px;">Pesan Motivasi</h1>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">
+                Kumpulan pesan motivasi untuk Firman di usia ke-16. Semoga menjadi inspirasi dalam perjalanan hidupmu.
+            </p>
+            
+            <div class="messages-container">
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="message-title">Masa Depan Gemilang</h3>
+                    <p class="message-text">
+                        Di usia 16, dunia ada di genggamanmu. Raih setiap peluang, 
+                        kejar setiap mimpi, dan jadilah versi terbaik dari dirimu sendiri. 
+                        Masa depan yang gemilang menantimu!
+                    </p>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="message-title">Pendidikan & Pertumbuhan</h3>
+                    <p class="message-text">
+                        Belajar adalah investasi terbaik untuk masa depan. Teruslah haus akan pengetahuan, 
+                        kembangkan bakatmu, dan jadilah pribadi yang terus bertumbuh setiap harinya.
+                    </p>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="message-title">Kebaikan Hati</h3>
+                    <p class="message-text">
+                        Keberhasilan terbesar bukan hanya tentang pencapaian pribadi, 
+                        tetapi juga tentang bagaimana kamu menyentuh kehidupan orang lain. 
+                        Tetaplah menjadi pribadi yang baik dan peduli.
+                    </p>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="message-title">Petualangan Hidup</h3>
+                    <p class="message-text">
+                        Usia 16 adalah awal petualangan sesungguhnya. Jelajahi passionmu, 
+                        coba hal-hal baru, dan jangan takut untuk keluar dari zona nyaman. 
+                        Petualangan terindah sedang menunggumu!
+                    </p>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="message-title">Persahabatan</h3>
+                    <p class="message-text">
+                        Kelilingi dirimu dengan orang-orang yang mendukung impianmu. 
+                        Persahabatan sejati adalah harta tak ternilai yang akan menemanimu 
+                        melalui suka dan duka.
+                    </p>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="message-title">Pencapaian & Kesuksesan</h3>
+                    <p class="message-text">
+                        Setiap langkah kecil menuju tujuan adalah sebuah pencapaian. 
+                        Rayakan setiap kemenangan, pelajari dari setiap tantangan, 
+                        dan teruslah melangkah dengan keyakinan penuh.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Page -->
+    <section id="gallery" class="page">
+        <div class="container">
+            <h1 class="gold-text" style="text-align: center; font-size: 2.8rem; margin-bottom: 20px;">Galeri Inspirasi</h1>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">
+                Koleksi gambar inspiratif untuk menyemangati perjalanan Firman di usia 16.
+            </p>
+            
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Masa Depan Gemilang">
+                    <div class="gallery-caption">Masa Depan Gemilang</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w-600&q=80" alt="Pendidikan & Pertumbuhan">
+                    <div class="gallery-caption">Pendidikan & Pertumbuhan</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Petualangan Hidup">
+                    <div class="gallery-caption">Petualangan Hidup</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Persahabatan">
+                    <div class="gallery-caption">Persahabatan Sejati</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kesuksesan">
+                    <div class="gallery-caption">Pencapaian & Kesuksesan</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1530099486328-0215777825af?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kebahagiaan">
+                    <div class="gallery-caption">Kebahagiaan Sejati</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wishes Page -->
+    <section id="wishes" class="page">
+        <div class="container">
+            <h1 class="gold-text" style="text-align: center; font-size: 2.8rem; margin-bottom: 20px;">Kirim Ucapan</h1>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">
+                Berikan ucapan dan motivasi untuk Firman di ulang tahunnya yang ke-16.
+            </p>
+            
+            <div class="wish-form">
+                <div class="form-group">
+                    <label for="name">Nama Anda</label>
+                    <input type="text" id="name" class="form-control" placeholder="Masukkan nama anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Ucapan & Motivasi</label>
+                    <textarea id="message" class="form-control" placeholder="Tulis ucapan dan motivasi untuk Firman..."></textarea>
+                </div>
+                
+                <button class="submit-btn" id="submitWish">Kirim Ucapan</button>
+            </div>
+            
+            <div class="wishes-container" id="wishesList">
+                <h2 class="gold-text" style="text-align: center; margin: 60px 0 30px; font-size: 2.2rem;">Ucapan Terkumpul</h2>
+                
+                <div class="wish-card">
+                    <div class="wish-author">Keluarga</div>
+                    <div class="wish-content">Firman, kami selalu bangga padamu. Di usia 16 ini, semoga kamu tumbuh menjadi pribadi yang lebih matang, bertanggung jawab, dan penuh kasih. Teruslah menjadi anak yang membanggakan!</div>
+                </div>
+                
+                <div class="wish-card">
+                    <div class="wish-author">Sahabat</div>
+                    <div class="wish-content">Happy Sweet Sixteen bro! Semoga di usia ini kamu semakin sukses meraih mimpi-mimpimu. Jangan pernah berhenti berusaha dan selalu jadi teman yang asik kayak sekarang!</div>
+                </div>
+                
+                <div class="wish-card">
+                    <div class="wish-author">Guru</div>
+                    <div class="wish-content">Firman, selamat ulang tahun yang ke-16. Teruslah semangat belajar dan jadilah generasi penerus yang membanggakan. Kami percaya kamu punya potensi besar untuk meraih kesuksesan!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">Dibuat dengan penuh kasih untuk merayakan ulang tahun ke-16 Firman</p>
+            <p class="footer-text">© 2023 Sweet Sixteen Celebration | Semua yang terbaik untuk masa depanmu!</p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation between pages
+        document.querySelectorAll('a[data-page]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show selected page
+                document.getElementById(pageId).classList.add('active');
+                
+                // Update active nav link styling
+                document.querySelectorAll('.nav-links a').forEach(navLink => {
+                    navLink.style.color = '#f5e6d3';
+                });
+                
+                this.style.color = '#d4af37';
+            });
+        });
+        
+        // Submit wish functionality
+        document.getElementById('submitWish').addEventListener('click', function() {
+            const nameInput = document.getElementById('name');
+            const messageInput = document.getElementById('message');
+            
+            if (nameInput.value.trim() === '' || messageInput.value.trim() === '') {
+                alert('Harap isi nama dan pesan terlebih dahulu!');
+                return;
+            }
+            
+            // Create new wish card
+            const wishCard = document.createElement('div');
+            wishCard.className = 'wish-card';
+            wishCard.innerHTML = `
+                <div class="wish-author">${nameInput.value}</div>
+                <div class="wish-content">${messageInput.value}</div>
+            `;
+            
+            // Add to wishes list (at the top)
+            const wishesList = document.getElementById('wishesList');
+            wishesList.appendChild(wishCard);
+            
+            // Clear form
+            nameInput.value = '';
+            messageInput.value = '';
+            
+            // Show success message
+            alert('Ucapan berhasil dikirim! Terima kasih atas motivasi untuk Firman.');
+        });
+        
+        // Simple floating animation for decorative elements
+        document.querySelectorAll('.floating').forEach(element => {
+            // Randomize animation delay for a more natural effect
+            element.style.animationDelay = `${Math.random() * 2}s`;
+        });
+        
+        // Add some interactive hover effects to message cards
+        document.querySelectorAll('.message-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Add birthday countdown (for next year)
+        const today = new Date();
+        const nextBirthday = new Date(today.getFullYear() + 1, 0, 1); // Example: Jan 1 next year
+        const diffTime = nextBirthday - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        // You could display this somewhere on the page if desired
+        console.log(`Hari sampai ulang tahun berikutnya: ${diffDays} hari`);
+    </script>
+</body>
+</html>
